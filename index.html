@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mine Trap Prototype Canvas</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2428;
+      --muted: #5f6a72;
+      --line: #d6d1c9;
+      --paper: #f7f4ee;
+      --panel: #fffdf8;
+      --accent: #23616d;
+      --accent-2: #9b4d2d;
+      --accent-3: #5b7443;
+      --warn: #a67624;
+      --done: #47724b;
+      --shadow: 0 1px 2px rgba(24, 28, 31, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 4;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 244, 238, 0.96);
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 16px 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button,
+    select {
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+    }
+
+    button {
+      padding: 0 11px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    button:hover {
+      border-color: #b7afa3;
+    }
+
+    select {
+      padding: 0 8px;
+    }
+
+    main {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 18px 20px 28px;
+    }
+
+    .canvas {
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    aside,
+    .stage,
+    .question,
+    .note-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    aside {
+      position: sticky;
+      top: 84px;
+      padding: 16px;
+    }
+
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+
+    h3 {
+      font-size: 15px;
+    }
+
+    h4 {
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .summary-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      border: 1px solid #e6e0d8;
+      border-radius: 6px;
+      background: #fbf8f1;
+    }
+
+    .summary-index {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .summary-item p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .legend {
+      display: grid;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--warn);
+    }
+
+    .dot.done {
+      background: var(--done);
+    }
+
+    .dot.hold {
+      background: var(--muted);
+    }
+
+    .stages {
+      display: grid;
+      gap: 16px;
+    }
+
+    .stage {
+      overflow: hidden;
+    }
+
+    .stage-header {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fbf8f1;
+    }
+
+    .stage-number {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 750;
+    }
+
+    .stage-status {
+      min-width: 126px;
+    }
+
+    .stage-body {
+      padding: 16px;
+    }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .question {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 220px;
+      padding: 13px;
+    }
+
+    .question strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .question p {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .question ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .question li + li {
+      margin-top: 5px;
+    }
+
+    .question-footer {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #e6e0d8;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 76px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 9px;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    textarea:focus,
+    select:focus,
+    button:focus {
+      outline: 2px solid rgba(35, 97, 109, 0.28);
+      outline-offset: 1px;
+    }
+
+    .placeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .placeholder {
+      border: 1px dashed #c8c0b5;
+      border-radius: 8px;
+      padding: 13px;
+      background: #fffaf2;
+      min-height: 160px;
+    }
+
+    .placeholder p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    label {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--accent);
+    }
+
+    .note-panel {
+      margin-top: 14px;
+      padding: 13px;
+      background: #fffaf2;
+    }
+
+    .note-panel p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 10px 0 0;
+    }
+
+    .tag {
+      border: 1px solid #d9d0c4;
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: var(--muted);
+      background: #fff;
+      font-size: 12px;
+    }
+
+    .high {
+      border-left: 4px solid var(--accent-2);
+    }
+
+    .medium {
+      border-left: 4px solid var(--warn);
+    }
+
+    .low {
+      border-left: 4px solid var(--accent-3);
+    }
+
+    .footer-note {
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1100px) {
+      .canvas {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+      }
+
+      .question-grid,
+      .placeholder-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .topbar,
+      .stage-header {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        justify-content: flex-start;
+      }
+
+      .stage-status {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div>
+        <h1>Mine Trap Polished Prototype Canvas</h1>
+        <p class="subtitle">Physical prototype roadmap focused first on locking the rules, then preparing printable components.</p>
+      </div>
+      <div class="toolbar">
+        <button type="button" id="expandAll">Expand Notes</button>
+        <button type="button" id="clearNotes">Clear Saved Notes</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="canvas">
+      <aside>
+        <h2>Prototype Path</h2>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <div class="summary-index">1</div>
+            <div>
+              <strong>Rules Lock</strong>
+              <p>Resolve designer questions and produce one canonical rulebook plus final card text.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-index">2</div>
+            <div>
+              <strong>Component Manifest</strong>
+              <p>Freeze card counts, token needs, player aids, and physical table setup.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-index">3</div>
+            <div>
+              <strong>Art And Layout</strong>
+              <p>Export missing cards, update outdated card text, and normalize visual style.</p>
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-index">4</div>
+            <div>
+              <strong>Print And Test</strong>
+              <p>Build the physical prototype, blind-test it, and run one rules-only iteration.</p>
+            </div>
+          </div>
+        </div>
+        <div class="legend">
+          <span><i class="dot"></i> Needs designer answer</span>
+          <span><i class="dot done"></i> Ready to lock after answer</span>
+          <span><i class="dot hold"></i> Placeholder for later phase</span>
+        </div>
+      </aside>
+
+      <section class="stages">
+        <article class="stage">
+          <div class="stage-header">
+            <div class="stage-number">1</div>
+            <div>
+              <h2>Rules Lockdown</h2>
+              <p class="subtitle">Goal: remove ambiguity before touching final art or print layouts.</p>
+            </div>
+            <select class="stage-status" data-store="stage-rules-status">
+              <option>In discovery</option>
+              <option>Questions sent</option>
+              <option>Designer answered</option>
+              <option>Locked</option>
+            </select>
+          </div>
+          <div class="stage-body">
+            <div class="question-grid">
+              <section class="question high">
+                <div>
+                  <h3>Core Win Condition</h3>
+                  <p>Lock the exact victory target and whether coal must be deposited or merely carried.</p>
+                  <ul>
+                    <li>Is the coal requirement always 12, or does it scale by player count?</li>
+                    <li>Does coal in inventory count, or must coal be deposited into the furnace?</li>
+                    <li>If deposited coal counts, is depositing one coal always one action?</li>
+                    <li>Do face-down coal cards count toward victory?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-win" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question high">
+                <div>
+                  <h3>Air Timer And Difficulty</h3>
+                  <p>Define the standard starting timer and how difficulty scales.</p>
+                  <ul>
+                    <li>What is the default air value for 1, 2, 3, and 4 players?</li>
+                    <li>Does burning coal always deplete air by one round?</li>
+                    <li>Should there be easy/standard/hard setup values?</li>
+                    <li>Does any event restore or add air?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-air" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question high">
+                <div>
+                  <h3>Spiders</h3>
+                  <p>This is the largest unresolved rules area and should be decided before layout updates.</p>
+                  <ul>
+                    <li>Are spiders stationary in the main game, or do they move at end of round?</li>
+                    <li>If they move, do they use base-card edge numbers exactly as drafted?</li>
+                    <li>When is a spider rotated versus aligned normally?</li>
+                    <li>Does a spider cover and block the card beneath it?</li>
+                    <li>What happens when water, repellent, elevator, or another spider occupies the nest?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-spiders" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question high">
+                <div>
+                  <h3>Pickaxe: Dig Deep Or Reroute</h3>
+                  <p>Current art and latest rules disagree, so this needs a named final behavior.</p>
+                  <ul>
+                    <li>Is the final action called Dig Deep, Reroute, or something else?</li>
+                    <li>Does it remove the top card, swap stacked cards, or reveal/reposition cards?</li>
+                    <li>Can it target a space containing a spider, rope, repellent, pawn, or river?</li>
+                    <li>Does it consume two Pickaxe cooldowns, remove cards from play, or both?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-pickaxe" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question medium">
+                <div>
+                  <h3>Inventory System</h3>
+                  <p>Confirm the face-up/face-down cooldown loop and remove old discard-hand language.</p>
+                  <ul>
+                    <li>Are all player inventory cards visible to the table?</li>
+                    <li>When all cards are face down, do they refresh immediately or at turn end?</li>
+                    <li>Can a player choose Stow Item for either or both required actions?</li>
+                    <li>When gained, do all item cards enter face up?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-inventory" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question medium">
+                <div>
+                  <h3>Turn Structure</h3>
+                  <p>Clarify what is mandatory and what can be skipped.</p>
+                  <ul>
+                    <li>Must each player use exactly 1 move and exactly 2 actions?</li>
+                    <li>Is "move nowhere" a legal move?</li>
+                    <li>Can rescuing another pawn from an adjacent space always be done as the move?</li>
+                    <li>Can a player act from the final progress circle before moving away?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-turn" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question medium">
+                <div>
+                  <h3>Rivers And Flooding</h3>
+                  <p>Confirm the exact flood procedure and how river movement resolves.</p>
+                  <ul>
+                    <li>Does flooding chain until no more spaces can flood, or only one wave per round?</li>
+                    <li>Are base cards with rotated cards on them considered empty for flooding?</li>
+                    <li>Can a rope-covered river stop forced river movement?</li>
+                    <li>If a pawn is trapped by river movement, what exact penalty and placement apply?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-rivers" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question medium">
+                <div>
+                  <h3>Rope And Repellent</h3>
+                  <p>These cards create board infrastructure, so retrieval and coverage rules need one clean policy.</p>
+                  <ul>
+                    <li>Do Rope and Repellent stay on the board as rotated cards?</li>
+                    <li>Does taking them back require an action and a move, or only one of those?</li>
+                    <li>Can they be washed away by newly revealed water?</li>
+                    <li>Can Rope or Repellent be placed if the card underneath is unrevealed?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-tools" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question low">
+                <div>
+                  <h3>Setup And Starting Positions</h3>
+                  <p>Make setup teachable and eliminate bracketed notes from the rules.</p>
+                  <ul>
+                    <li>Can multiple players start on the same space?</li>
+                    <li>Are starts limited to corners, any edge, or designer choice?</li>
+                    <li>Is the elevator always hidden in the center 3x3 under another card?</li>
+                    <li>Should the coal/high-rubble random-removal step stay exactly as written?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-setup" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+
+              <section class="question low">
+                <div>
+                  <h3>Component Counts</h3>
+                  <p>Card counts must match the locked rules and available art.</p>
+                  <ul>
+                    <li>Final mine deck count by card type?</li>
+                    <li>Final starting item count by player count?</li>
+                    <li>Final tool chest mix by player count?</li>
+                    <li>How many rule/reference cards should be included?</li>
+                  </ul>
+                </div>
+                <div class="question-footer">
+                  <h4>Designer Answer</h4>
+                  <textarea data-store="q-counts" placeholder="Write the locked answer here."></textarea>
+                </div>
+              </section>
+            </div>
+
+            <div class="note-panel">
+              <h3>Rules Lock Deliverables</h3>
+              <div class="checklist">
+                <label><input type="checkbox" data-store="rules-deliverable-1"> One canonical rules document with no bracketed notes.</label>
+                <label><input type="checkbox" data-store="rules-deliverable-2"> Final card text table for every card type.</label>
+                <label><input type="checkbox" data-store="rules-deliverable-3"> Final component manifest by player count.</label>
+                <label><input type="checkbox" data-store="rules-deliverable-4"> One-page teach sheet or player aid outline.</label>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage">
+          <div class="stage-header">
+            <div class="stage-number">2</div>
+            <div>
+              <h2>Component Manifest</h2>
+              <p class="subtitle">Placeholder for exact counts, proxy needs, physical tokens, and table footprint.</p>
+            </div>
+            <select class="stage-status" data-store="stage-components-status">
+              <option>Placeholder</option>
+              <option>Drafting</option>
+              <option>Ready for review</option>
+              <option>Locked</option>
+            </select>
+          </div>
+          <div class="stage-body">
+            <div class="placeholder-grid">
+              <section class="placeholder">
+                <h3>Cards</h3>
+                <p>Mine cards, base cards, item cards, tool chest cards, rule cards, and any special piles.</p>
+                <div class="tag-row"><span class="tag">Counts</span><span class="tag">Backs</span><span class="tag">Print sheets</span></div>
+              </section>
+              <section class="placeholder">
+                <h3>Tokens And Markers</h3>
+                <p>Pawns, air counter, furnace/coal storage, removed-from-play marker, and any progress aids.</p>
+                <div class="tag-row"><span class="tag">Needed</span><span class="tag">Improvised</span><span class="tag">Final</span></div>
+              </section>
+              <section class="placeholder">
+                <h3>Setup Diagram</h3>
+                <p>5x5 base grid, layered center 3x3, deck piles, inventories, and table spacing.</p>
+                <div class="tag-row"><span class="tag">Rulebook</span><span class="tag">Player aid</span></div>
+              </section>
+            </div>
+            <div class="note-panel">
+              <h3>Notes</h3>
+              <textarea data-store="notes-components" placeholder="Add manifest notes after the rules are locked."></textarea>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage">
+          <div class="stage-header">
+            <div class="stage-number">3</div>
+            <div>
+              <h2>Card Text And Graphic Updates</h2>
+              <p class="subtitle">Placeholder for converting final rules into card-ready copy and production edits.</p>
+            </div>
+            <select class="stage-status" data-store="stage-cardtext-status">
+              <option>Placeholder</option>
+              <option>Drafting</option>
+              <option>Ready for review</option>
+              <option>Locked</option>
+            </select>
+          </div>
+          <div class="stage-body">
+            <div class="placeholder-grid">
+              <section class="placeholder">
+                <h3>Update Outdated Cards</h3>
+                <p>Pickaxe, Rope, Repellent, Map, Tool Chest, Spider, River, Pit, Cavern, Elevator, Coal, High Rubble.</p>
+              </section>
+              <section class="placeholder">
+                <h3>Missing Exports</h3>
+                <p>Coal, Elevator, Repellent, full spider set, and any final rule/player aid cards.</p>
+              </section>
+              <section class="placeholder">
+                <h3>Readability Pass</h3>
+                <p>Confirm font size, contrast, icon meaning, text hierarchy, and action labels at card-table distance.</p>
+              </section>
+            </div>
+            <div class="note-panel">
+              <h3>Notes</h3>
+              <textarea data-store="notes-cardtext" placeholder="Add card copy and export notes here."></textarea>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage">
+          <div class="stage-header">
+            <div class="stage-number">4</div>
+            <div>
+              <h2>Artwork And Print Layout</h2>
+              <p class="subtitle">Placeholder for visual polish, sheet layout, card backs, bleed, and print specs.</p>
+            </div>
+            <select class="stage-status" data-store="stage-art-status">
+              <option>Placeholder</option>
+              <option>Drafting</option>
+              <option>Ready for review</option>
+              <option>Locked</option>
+            </select>
+          </div>
+          <div class="stage-body">
+            <div class="placeholder-grid">
+              <section class="placeholder">
+                <h3>Style Alignment</h3>
+                <p>Bring Cavern and any source-only cards into the same visual quality as Map, High Rubble, River, Rope, and Pit.</p>
+              </section>
+              <section class="placeholder">
+                <h3>Production Sheets</h3>
+                <p>Current printable PDFs appear older; make fresh sheets from the locked card set.</p>
+              </section>
+              <section class="placeholder">
+                <h3>Prototype Specs</h3>
+                <p>Choose card size, paper stock, sleeve plan, cut guides, backs, and whether cards are one-sided or duplexed.</p>
+              </section>
+            </div>
+            <div class="note-panel">
+              <h3>Notes</h3>
+              <textarea data-store="notes-art" placeholder="Add art and print-layout decisions here."></textarea>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage">
+          <div class="stage-header">
+            <div class="stage-number">5</div>
+            <div>
+              <h2>Build, Playtest, Iterate</h2>
+              <p class="subtitle">Placeholder for assembling the physical prototype and validating the locked rules.</p>
+            </div>
+            <select class="stage-status" data-store="stage-test-status">
+              <option>Placeholder</option>
+              <option>Prototype built</option>
+              <option>Internal test</option>
+              <option>Blind test</option>
+              <option>Iteration complete</option>
+            </select>
+          </div>
+          <div class="stage-body">
+            <div class="placeholder-grid">
+              <section class="placeholder">
+                <h3>Build Checklist</h3>
+                <p>Print, cut, sleeve, collect pawns, add air marker, add furnace marker, package rules and aids.</p>
+              </section>
+              <section class="placeholder">
+                <h3>Internal Test</h3>
+                <p>Check setup time, card counts, turn comprehension, flood timing, spider burden, and win/loss pacing.</p>
+              </section>
+              <section class="placeholder">
+                <h3>Blind Test</h3>
+                <p>Ask players to learn from the rules without designer coaching, then log every rules question.</p>
+              </section>
+            </div>
+            <div class="note-panel">
+              <h3>Notes</h3>
+              <textarea data-store="notes-test" placeholder="Add test plan and results here."></textarea>
+            </div>
+          </div>
+        </article>
+
+        <p class="footer-note">This canvas saves field values in this browser only. Keep the locked answers concise enough to turn directly into rulebook and card text.</p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const fields = document.querySelectorAll("[data-store]");
+
+    function loadFields() {
+      fields.forEach((field) => {
+        const key = "mine-trap-canvas:" + field.dataset.store;
+        const saved = localStorage.getItem(key);
+        if (saved === null) return;
+        if (field.type === "checkbox") {
+          field.checked = saved === "true";
+        } else {
+          field.value = saved;
+        }
+      });
+    }
+
+    function saveField(field) {
+      const key = "mine-trap-canvas:" + field.dataset.store;
+      const value = field.type === "checkbox" ? String(field.checked) : field.value;
+      localStorage.setItem(key, value);
+    }
+
+    fields.forEach((field) => {
+      field.addEventListener("input", () => saveField(field));
+      field.addEventListener("change", () => saveField(field));
+    });
+
+    document.getElementById("clearNotes").addEventListener("click", () => {
+      if (!confirm("Clear all saved answers, notes, statuses, and checks for this canvas?")) return;
+      Object.keys(localStorage)
+        .filter((key) => key.startsWith("mine-trap-canvas:"))
+        .forEach((key) => localStorage.removeItem(key));
+      fields.forEach((field) => {
+        if (field.type === "checkbox") field.checked = false;
+        else if (field.tagName === "SELECT") field.selectedIndex = 0;
+        else field.value = "";
+      });
+    });
+
+    document.getElementById("expandAll").addEventListener("click", () => {
+      document.querySelectorAll("textarea").forEach((area) => {
+        area.style.minHeight = area.style.minHeight === "160px" ? "76px" : "160px";
+      });
+    });
+
+    loadFields();
+  </script>
+</body>
+</html>
