@@ -1,0 +1,1216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mine Trap Rules Draft</title>
+  <style>
+    :root {
+      --coal: #08090a;
+      --coal-2: #121314;
+      --paper: #f3ead8;
+      --paper-2: #e3d2ad;
+      --ink: #201a12;
+      --muted: #6c604e;
+      --gold: #c49a4a;
+      --gold-2: #e2c37d;
+      --teal: #0e5a55;
+      --teal-2: #4ea39a;
+      --rust: #9a5135;
+      --line: rgba(226, 195, 125, 0.28);
+      --white: #fff9ea;
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
+      --radius: 8px;
+      --rule-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(52, 96, 92, 0.28), transparent 36rem),
+        radial-gradient(circle at 85% 12%, rgba(196, 154, 74, 0.14), transparent 30rem),
+        linear-gradient(180deg, #090a0b 0%, #13100c 42%, #08090a 100%);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 46px 46px;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.64) 100%);
+      pointer-events: none;
+    }
+
+    a {
+      color: var(--gold-2);
+    }
+
+    header {
+      position: relative;
+      min-height: 92vh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-art {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.62) 64%, rgba(0, 0, 0, 0.92) 100%),
+        url("assets/cards/elevator.png") center 42% / cover no-repeat;
+      filter: saturate(0.9) contrast(1.08);
+      transform: scale(1.02);
+    }
+
+    .hero {
+      position: relative;
+      width: min(var(--rule-width), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 88px 0 52px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+      color: var(--gold-2);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 42px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 840px;
+      color: var(--white);
+      font-size: clamp(52px, 12vw, 124px);
+      line-height: 0.88;
+      text-shadow: 0 8px 28px rgba(0, 0, 0, 0.72);
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 22px 0 0;
+      color: #e9dcc2;
+      font-size: clamp(18px, 2.2vw, 25px);
+      line-height: 1.36;
+      text-shadow: 0 6px 20px rgba(0, 0, 0, 0.72);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .chip {
+      border: 1px solid rgba(226, 195, 125, 0.42);
+      border-radius: 999px;
+      padding: 7px 11px;
+      background: rgba(8, 9, 10, 0.56);
+      color: #f5ead1;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      border-bottom: 1px solid var(--line);
+      background: rgba(8, 9, 10, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-inner {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      width: min(var(--rule-width), calc(100% - 32px));
+      margin: 0 auto;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    .nav-inner a {
+      flex: 0 0 auto;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: #e6d6b7;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .nav-inner a:hover {
+      border-color: rgba(226, 195, 125, 0.36);
+      background: rgba(226, 195, 125, 0.08);
+    }
+
+    main {
+      width: min(var(--rule-width), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 64px;
+    }
+
+    .rule-section {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 24px;
+      padding: 34px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-label {
+      position: sticky;
+      top: 64px;
+      align-self: start;
+      padding-top: 3px;
+    }
+
+    .section-number {
+      color: var(--gold);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .section-label h2 {
+      margin-top: 8px;
+      color: var(--white);
+      font-size: 28px;
+      line-height: 1.05;
+    }
+
+    .section-label p {
+      margin: 12px 0 0;
+      color: #bcae94;
+      font-size: 14px;
+    }
+
+    .panel {
+      border: 1px solid rgba(226, 195, 125, 0.26);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 249, 234, 0.96), rgba(231, 216, 184, 0.94)),
+        var(--paper);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel.dark {
+      background:
+        linear-gradient(180deg, rgba(20, 24, 22, 0.96), rgba(8, 9, 10, 0.96)),
+        var(--coal);
+      color: var(--white);
+    }
+
+    .panel-body {
+      padding: 22px;
+    }
+
+    .panel h3 {
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .panel.dark h3 {
+      color: var(--gold-2);
+    }
+
+    .panel p {
+      margin: 10px 0 0;
+    }
+
+    .panel ul,
+    .panel ol {
+      margin: 12px 0 0;
+      padding-left: 22px;
+    }
+
+    .panel li + li {
+      margin-top: 7px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .rule-card {
+      border: 1px solid rgba(32, 26, 18, 0.16);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.34);
+    }
+
+    .rule-card h4 {
+      color: var(--teal);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      font-weight: 820;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .rule-card p,
+    .rule-card li {
+      color: #2f281d;
+      font-size: 15px;
+    }
+
+    .callout {
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: rgba(196, 154, 74, 0.14);
+    }
+
+    .callout.pending {
+      border-left-color: var(--rust);
+      background: rgba(154, 81, 53, 0.15);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .inventory-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .inventory-item {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 14px;
+      align-items: center;
+      border: 1px solid rgba(32, 26, 18, 0.14);
+      border-radius: var(--radius);
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    .inventory-item img {
+      width: 96px;
+      border-radius: 5px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .inventory-item h4 {
+      color: var(--ink);
+      font-size: 18px;
+      text-transform: none;
+    }
+
+    .inventory-item p {
+      margin-top: 4px;
+      color: #3b3224;
+    }
+
+    .art-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .art-strip img {
+      width: 100%;
+      aspect-ratio: 822 / 1122;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.36);
+    }
+
+    .mini-card-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .mini-card-row img {
+      width: 58px;
+      aspect-ratio: 822 / 1122;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .variant-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .variant-grid img {
+      width: 100%;
+      aspect-ratio: 822 / 1122;
+      object-fit: cover;
+      border-radius: 5px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .step {
+      position: relative;
+      border: 1px solid rgba(32, 26, 18, 0.16);
+      border-radius: var(--radius);
+      padding: 14px 16px 14px 54px;
+      background: rgba(255, 255, 255, 0.36);
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: var(--white);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 800;
+    }
+
+    .step h4 {
+      color: var(--ink);
+      font-size: 17px;
+      text-transform: none;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 14px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 580px;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.34);
+    }
+
+    th,
+    td {
+      border: 1px solid rgba(32, 26, 18, 0.15);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(14, 90, 85, 0.12);
+      color: var(--teal);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .scenario {
+      border: 1px solid rgba(226, 195, 125, 0.28);
+      border-radius: var(--radius);
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(12, 18, 17, 0.94), rgba(7, 8, 8, 0.96)),
+        var(--coal);
+      color: #eadfca;
+    }
+
+    .scenario h3 {
+      color: var(--gold-2);
+    }
+
+    .scenario p,
+    .scenario li {
+      color: #eadfca;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .status {
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: rgba(14, 90, 85, 0.12);
+      color: var(--teal);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      font-weight: 780;
+    }
+
+    .status.pending {
+      background: rgba(154, 81, 53, 0.13);
+      color: #873f28;
+    }
+
+    .editable-note {
+      margin-top: 18px;
+      border: 1px dashed rgba(32, 26, 18, 0.3);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .editable-note h4 {
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      margin-top: 8px;
+      border: 1px solid rgba(32, 26, 18, 0.18);
+      border-radius: 6px;
+      padding: 10px;
+      resize: vertical;
+      background: rgba(255, 255, 255, 0.52);
+      color: var(--ink);
+      font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .footer {
+      padding: 34px 0 48px;
+      color: #bcae94;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        min-height: 78vh;
+      }
+
+      .rule-section {
+        grid-template-columns: 1fr;
+      }
+
+      .section-label {
+        position: static;
+      }
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .art-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .inventory-item {
+        grid-template-columns: 72px 1fr;
+      }
+
+      .inventory-item img {
+        width: 72px;
+      }
+
+      .art-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+
+      body::before,
+      body::after,
+      nav,
+      .hero-art,
+      .editable-note {
+        display: none;
+      }
+
+      header {
+        min-height: auto;
+        border-bottom: 2px solid #222;
+      }
+
+      .hero {
+        width: auto;
+        padding: 30px 0 20px;
+      }
+
+      h1,
+      .subtitle,
+      .section-label h2,
+      .section-label p {
+        color: black;
+        text-shadow: none;
+      }
+
+      main {
+        width: auto;
+      }
+
+      .rule-section {
+        break-inside: avoid;
+        grid-template-columns: 170px 1fr;
+        padding: 20px 0;
+      }
+
+      .section-label {
+        position: static;
+      }
+
+      .panel,
+      .panel.dark,
+      .scenario {
+        box-shadow: none;
+        background: white;
+        color: black;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero-art" aria-hidden="true"></div>
+    <div class="hero">
+      <div class="kicker">Physical Prototype Rules Draft</div>
+      <h1>Mine Trap</h1>
+      <p class="subtitle">Work together to survive a collapsing coal mine, uncover the elevator, stoke its fading furnace, and escape before the air runs out.</p>
+      <div class="hero-meta">
+        <span class="chip">1-4 players</span>
+        <span class="chip">Cooperative survival</span>
+        <span class="chip">Exploration and hazard management</span>
+        <span class="chip">Live rules draft</span>
+      </div>
+    </div>
+  </header>
+
+  <nav aria-label="Rules sections">
+    <div class="nav-inner">
+      <a href="#overview">Overview</a>
+      <a href="#inventory">Game Inventory</a>
+      <a href="#setup">Setup</a>
+      <a href="#core-rules">Core Rules</a>
+      <a href="#cards">Cards</a>
+      <a href="#scenarios">Examples</a>
+      <a href="#advanced">Alternate Rules</a>
+      <a href="#open-questions">Open Questions</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="rule-section" id="overview">
+      <div class="section-label">
+        <div class="section-number">Section 01</div>
+        <h2>Overview</h2>
+        <p>The promise of the game in one pass before players touch the cards.</p>
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-body">
+            <h3>The Story</h3>
+            <p>You are trapped in a collapsed coal mine. Somewhere in the center of the mine is a steam-powered elevator, but the furnace is fading and the passages are unstable. Your team must explore the mine, find enough coal, uncover the elevator, and gather every pawn there before the air runs out.</p>
+            <div class="grid-3" style="margin-top: 16px;">
+              <div class="rule-card">
+                <h4>Objective</h4>
+                <p>Get all pawns to the Elevator and gather enough Coal to power the furnace.</p>
+              </div>
+              <div class="rule-card">
+                <h4>Standard Target</h4>
+                <p>Use 12 Coal for standard playtesting. Use 10 for an easier game or 14 for a harder game.</p>
+              </div>
+              <div class="rule-card">
+                <h4>Loss</h4>
+                <p>If the air marker reaches zero before the team escapes, all players lose together.</p>
+              </div>
+            </div>
+            <div class="callout">
+              <strong>Escape Check</strong>
+              If all pawns are on the Elevator, players may immediately deposit any Coal from their inventories into the furnace pile. If the furnace contains 12 or more Coal, all players win.
+            </div>
+          </div>
+        </div>
+        <div class="art-strip" aria-label="Mine Trap card art references">
+          <img src="assets/cards/elevator.png" alt="Elevator card">
+          <img src="assets/cards/coal_card_1.png" alt="Coal card">
+          <img src="assets/cards/card_pickaxe_DigDeep.png" alt="Pickaxe card">
+          <img src="assets/cards/card_river.png" alt="River card">
+          <img src="assets/cards/card_spider_dunkin.png" alt="Spider card">
+        </div>
+      </div>
+    </section>
+
+    <section class="rule-section" id="inventory">
+      <div class="section-label">
+        <div class="section-number">Section 02</div>
+        <h2>Game Inventory</h2>
+        <p>Everything needed to build the physical prototype. Counts remain provisional until the final rules document is approved.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <h3>Components</h3>
+          <div class="grid-2" style="margin-top: 16px;">
+            <div class="rule-card">
+              <h4>Cards</h4>
+              <ul>
+                <li>Base cards with River backs and edge numbers.</li>
+                <li>Mine cards used to build the hidden mine.</li>
+                <li>Item cards for player inventories and the Tool Chest pile.</li>
+                <li>Rule/reference cards for turn order and progress circles.</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>Markers</h4>
+              <ul>
+                <li>One pawn per player.</li>
+                <li>Air marker or air track.</li>
+                <li>Furnace pile area for deposited Coal.</li>
+                <li>Removed-from-play area.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="callout pending">
+            <strong>Count Deferred</strong>
+            Final component counts will be calculated after the final rules document is approved.
+          </div>
+
+          <h3 style="margin-top: 22px;">Key Card Families</h3>
+          <div class="inventory-list">
+            <div class="inventory-item">
+              <img src="assets/cards/card_pickaxe_DigDeep.png" alt="Pickaxe card">
+              <div>
+                <h4>Pickaxe</h4>
+                <p>Used to gain buried items and Dig Deep into adjacent two-card stacks.</p>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/coal_card_1.png" alt="Coal card">
+              <div>
+                <h4>Coal</h4>
+                <p>Coal powers the Elevator furnace. The current folder includes several Coal art/title variants for texture and discovery interest; under the current playtest rules, they all play the same.</p>
+                <div class="mini-card-row" aria-label="Coal art variants">
+                  <img src="assets/cards/coal_card_1.png" alt="Coal variant 1">
+                  <img src="assets/cards/coal_card_2.png" alt="Coal variant 2">
+                  <img src="assets/cards/coal_card_3.png" alt="Coal variant 3">
+                  <img src="assets/cards/coal_x2_card_1.png" alt="2 Coal art variant">
+                  <img src="assets/cards/coal_x3_card_1.png" alt="3 Coal art variant">
+                </div>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/card_rope.png" alt="Rope card">
+              <div>
+                <h4>Rope</h4>
+                <p>Placed as rotated board infrastructure. It can help with pits and rivers, and is not washed away by water.</p>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/card_tool_chest_new.png" alt="Tool Chest card">
+              <div>
+                <h4>Tool Chest</h4>
+                <p>When gained, remove it from play and draw from the Tool Chest pile.</p>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/spider_repellent_1.png" alt="Spider Repellent card">
+              <div>
+                <h4>Spider Repellent</h4>
+                <p>Repellent variants add visual interest but play the same. Repellent can be washed away by River flooding.</p>
+                <div class="mini-card-row" aria-label="Spider Repellent art variants">
+                  <img src="assets/cards/spider_repellent_1.png" alt="Spider Repellent variant 1">
+                  <img src="assets/cards/spider_repellent_2.png" alt="Spider Repellent variant 2">
+                  <img src="assets/cards/spider_repellent_3.png" alt="Spider Repellent variant 3">
+                </div>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/Cavern.png" alt="Cavern card">
+              <div>
+                <h4>Cavern</h4>
+                <p>A pit-like setback with a new route out of the mine; when escaped, it can reposition a pawn across the board.</p>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/elevator.png" alt="Elevator card">
+              <div>
+                <h4>Elevator</h4>
+                <p>The goal location. Gather all pawns here and stoke the furnace with enough Coal to escape.</p>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/card_spider_dunkin.png" alt="Spider card">
+              <div>
+                <h4>Giant Spider</h4>
+                <p>A moving setback unless it is trapping a pawn on its space. Multiple spider versions are available so the prototype can support an easier spider mix.</p>
+                <div class="mini-card-row" aria-label="Spider art variants">
+                  <img src="assets/cards/card_spider_addi.png" alt="Addi the Giant Spider">
+                  <img src="assets/cards/card_spider_buddy.png" alt="Buddy the Giant Spider">
+                  <img src="assets/cards/card_spider_cuddles.png" alt="Cuddles the Giant Spider">
+                  <img src="assets/cards/card_spider_dunkin.png" alt="Dunkin the Giant Spider">
+                  <img src="assets/cards/card_spider_ed.png" alt="Ed the Giant Spider">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="editable-note">
+            <h4>Inventory Notes</h4>
+            <textarea data-store="inventory-notes" placeholder="Add component count notes here after the rules are approved."></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rule-section" id="setup">
+      <div class="section-label">
+        <div class="section-number">Section 03</div>
+        <h2>Setup</h2>
+        <p>A teachable setup flow for building the hidden mine.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <h3>Build The Mine</h3>
+          <div class="steps">
+            <div class="step">
+              <h4>Prepare the base grid</h4>
+              <p>Shuffle the base cards and place them in a 5x5 grid with the River side down. Leave space between cards for rotated cards such as Rope, Repellent, and moving Spiders.</p>
+            </div>
+            <div class="step">
+              <h4>Set aside the Elevator</h4>
+              <p>Remove the Elevator from the mine deck. It will be shuffled into the center 3x3 portion of the mine.</p>
+            </div>
+            <div class="step">
+              <h4>Randomize Coal and High Rubble</h4>
+              <p>Pull 6 Coal cards and 6 High Rubble cards. Shuffle them together, remove 4 facedown to the removed-from-play area, then shuffle the remaining 8 back into the mine deck.</p>
+            </div>
+            <div class="step">
+              <h4>Build the center</h4>
+              <p>Draw 8 random mine cards and add the Elevator. Shuffle those 9 cards, then place them facedown in the center 3x3 of the base grid. The Elevator is always somewhere in this center 3x3, but it may be a top card.</p>
+            </div>
+            <div class="step">
+              <h4>Complete the mine</h4>
+              <p>Layer the remaining mine cards over the 5x5 grid, slightly offsetting stacked cards so players can see where spaces contain more than one card.</p>
+            </div>
+            <div class="step">
+              <h4>Prepare inventories</h4>
+              <p>Give each player starting items as defined by the final component manifest. All inventory cards are public and placed face up in front of the player.</p>
+            </div>
+            <div class="step">
+              <h4>Choose starting spaces</h4>
+              <p>Players may start on any edge space. Multiple players may start on the same edge space if they choose to do so strategically.</p>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Opening Scene</strong>
+            Read aloud: "You are trapped in a collapsed coal mine. The elevator out is somewhere in the center of the mine. Gather Coal, survive the hazards, and get everyone to the Elevator before the air runs out."
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rule-section" id="core-rules">
+      <div class="section-label">
+        <div class="section-number">Section 04</div>
+        <h2>Core Rules</h2>
+        <p>The shared procedure that drives turns, air, discovery, and hazards.</p>
+      </div>
+      <div>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-body">
+              <h3>Turn Structure</h3>
+              <ul>
+                <li>Movement is optional. A player does not have to move.</li>
+                <li>Moving nowhere is a legal move.</li>
+                <li>Each player must resolve two actions each turn.</li>
+                <li>For each unused action, the player must Stow Item by flipping one face-up inventory card facedown.</li>
+                <li>Rescuing another pawn from an adjacent space can be done as the player's move.</li>
+              </ul>
+              <div class="status-row">
+                <span class="status">Locked</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-body">
+              <h3>Inventory Cooldown</h3>
+              <ul>
+                <li>All player inventory cards are visible to the table.</li>
+                <li>When all cards in a player's inventory are face down, refresh immediately by flipping all inventory cards face up.</li>
+                <li>All gained item cards enter inventory face up.</li>
+              </ul>
+              <div class="status-row">
+                <span class="status">Locked</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-body">
+              <h3>Air</h3>
+              <p>At the end of each round, reduce air by 1. If the air marker reaches zero, all players lose.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Players</th>
+                      <th>Standard Air</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>1</td><td>18</td></tr>
+                    <tr><td>2</td><td>15</td></tr>
+                    <tr><td>3</td><td>13</td></tr>
+                    <tr><td>4</td><td>11</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Burning Coal always depletes air by 1 round.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-body">
+              <h3>Progress Circles</h3>
+              <p>Some setbacks place a pawn on progress circles. A pawn may use its move to advance to the next progress circle. If there is a legal move from the final progress circle, the player may choose to spend an action before moving away.</p>
+              <div class="callout pending">
+                <strong>Needs Final Language</strong>
+                Tomorrow's designer question: exactly which actions are legal while a pawn is on a non-final progress circle?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel dark" style="margin-top: 16px;">
+          <div class="panel-body">
+            <h3>End Of Round</h3>
+            <div class="grid-3" style="margin-top: 14px;">
+              <div class="rule-card">
+                <h4>1. Deplete Air</h4>
+                <p>Move the air marker down by 1. If it reaches zero, the game ends in a loss.</p>
+              </div>
+              <div class="rule-card">
+                <h4>2. Flood</h4>
+                <p>Flooding happens as one wave per round. Advanced rules may allow chained flooding.</p>
+              </div>
+              <div class="rule-card">
+                <h4>3. Spiders</h4>
+                <p>Move each revealed Spider that is free to move and not trapping a pawn.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rule-section" id="cards">
+      <div class="section-label">
+        <div class="section-number">Section 05</div>
+        <h2>Card Rules</h2>
+        <p>Locked card behaviors translated from designer answers. Some card text still needs final layout wording.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <div class="grid-2">
+            <div class="rule-card">
+              <h4>Coal And Furnace</h4>
+              <p><strong>Action: Stoke the Furnace.</strong> While your pawn is on the Elevator, you may use 1 action to deposit 1 Coal from your inventory into the furnace pile. Deposited Coal counts toward the final total.</p>
+              <p>Coal in inventory also counts during the Escape Check, including face-down Coal cards.</p>
+              <p>The Coal cards currently include multiple visual variants, including cards titled 2 Coal and 3 Coal. For the current rules draft, all Coal cards play the same and count as one Coal unless a later component-count pass explicitly changes this.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Pickaxe: Dig Deep</h4>
+              <p>Dig Deep swaps the top position of the two cards in an adjacent qualifying space. It does not reveal the newly moved top card and does not remove cards from play.</p>
+              <p>Cost: flip two Pickaxes in the player's inventory facedown.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Rivers And Flooding</h4>
+              <p>Flooding happens as one wave per round. Base cards with rotated cards on them are considered empty for flooding. When a River floods that space, remove any rotated card there except Rope.</p>
+              <p>River spaces remain legal Dig Deep targets.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Rope And Repellent</h4>
+              <p>Rope and Repellent stay on the board as rotated cards after being placed, unless Repellent is washed away by a River. Taking one back with "You may take it with you" is a free action.</p>
+              <p>Rope is not washed away by newly revealed water. Repellent can be washed away. Rope or Repellent may be placed even if the card underneath is unrevealed.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Spiders</h4>
+              <p>Spiders move when revealed and during the Spiders step at the end of every round. If one or more pawns are on the same space as a Spider, that Spider does not move.</p>
+              <p>A free Spider is rotated. A Spider trapping a pawn is aligned normally and blocks the card beneath it. Several Spider cards exist as variant difficulty and personality options.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Spider Nest</h4>
+              <p>Spiders use base-card edge numbers to choose movement. When a Spider is forced back to its nest, it must return there. If the nest is blocked for any reason, remove that Spider from the game.</p>
+            </div>
+          </div>
+          <h3 style="margin-top: 22px;">Current Coal Variants</h3>
+          <p>The Coal cards use varied artwork to make coal discoveries feel less repetitive. Under the current playtest rules, all Coal variants play the same.</p>
+          <div class="variant-grid" aria-label="Current Coal card variants">
+            <img src="assets/cards/coal_card_1.png" alt="Coal card variant 1">
+            <img src="assets/cards/coal_card_2.png" alt="Coal card variant 2">
+            <img src="assets/cards/coal_card_3.png" alt="Coal card variant 3">
+            <img src="assets/cards/coal_card_4.png" alt="Coal card variant 4">
+            <img src="assets/cards/coal_card_5.png" alt="Coal card variant 5">
+            <img src="assets/cards/coal_card_6.png" alt="Coal card variant 6">
+            <img src="assets/cards/coal_card_7.png" alt="Coal card variant 7">
+            <img src="assets/cards/coal_card_8.png" alt="Coal card variant 8">
+            <img src="assets/cards/coal_card_9.png" alt="Coal card variant 9">
+            <img src="assets/cards/coal_x2_card_1.png" alt="2 Coal art variant 1">
+            <img src="assets/cards/coal_x2_card_2.png" alt="2 Coal art variant 2">
+            <img src="assets/cards/coal_x2_card_3.png" alt="2 Coal art variant 3">
+            <img src="assets/cards/coal_x3_card_1.png" alt="3 Coal art variant 1">
+            <img src="assets/cards/coal_x3_card_2.png" alt="3 Coal art variant 2">
+            <img src="assets/cards/coal_x3_card_3.png" alt="3 Coal art variant 3">
+          </div>
+          <h3 style="margin-top: 22px;">Current Spider Variants</h3>
+          <p>These cards share the Giant Spider system, but the prototype now includes multiple named versions so the final game can tune difficulty and variety.</p>
+          <div class="variant-grid" aria-label="Current Giant Spider card variants">
+            <img src="assets/cards/card_spider_addi.png" alt="Addi the Giant Spider">
+            <img src="assets/cards/card_spider_buddy.png" alt="Buddy the Giant Spider">
+            <img src="assets/cards/card_spider_cuddles.png" alt="Cuddles the Giant Spider">
+            <img src="assets/cards/card_spider_cuddles_2.png" alt="Cuddles the Giant Spider alternate">
+            <img src="assets/cards/card_spider_dunkin.png" alt="Dunkin the Giant Spider">
+            <img src="assets/cards/card_spider_dunkin_2.png" alt="Dunkin the Giant Spider alternate">
+            <img src="assets/cards/card_spider_ed.png" alt="Ed the Giant Spider">
+            <img src="assets/cards/card_spider_ed_2.png" alt="Ed the Giant Spider alternate">
+          </div>
+          <h3 style="margin-top: 22px;">Spider Repellent Variants</h3>
+          <p>The Spider Repellent cards use different artwork for interest, but they play the same unless a later rules pass says otherwise.</p>
+          <div class="variant-grid" aria-label="Current Spider Repellent card variants">
+            <img src="assets/cards/spider_repellent_1.png" alt="Spider Repellent variant 1">
+            <img src="assets/cards/spider_repellent_2.png" alt="Spider Repellent variant 2">
+            <img src="assets/cards/spider_repellent_3.png" alt="Spider Repellent variant 3">
+          </div>
+          <div class="callout pending">
+            <strong>Dig Deep Edge Cases Pending</strong>
+            Still decide how Dig Deep handles a space with a Spider, Rope, Repellent, standing pawn, or trapped pawn.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rule-section" id="scenarios">
+      <div class="section-label">
+        <div class="section-number">Section 06</div>
+        <h2>Example Scenarios</h2>
+        <p>Rules examples to make edge cases teachable. These can become diagrams later.</p>
+      </div>
+      <div class="grid-2">
+        <div class="scenario">
+          <h3>Example: Finding The Elevator</h3>
+          <p>A player is adjacent to a two-card stack in the center 3x3. The team suspects the Elevator may be buried there.</p>
+          <ol>
+            <li>The player flips two Pickaxes facedown to Dig Deep.</li>
+            <li>The two cards in that adjacent stack swap top position.</li>
+            <li>The newly moved top card is not revealed by Dig Deep.</li>
+            <li>A later move or effect must reveal that card.</li>
+          </ol>
+        </div>
+        <div class="scenario">
+          <h3>Example: Flooding A Rotated Card</h3>
+          <p>During the Flood step, a River floods a base card that has a rotated Repellent card on it.</p>
+          <ol>
+            <li>The space is considered empty for flooding.</li>
+            <li>The base card is flipped to its River side.</li>
+            <li>The Repellent is washed away and removed.</li>
+            <li>If the rotated card had been Rope, the Rope would remain.</li>
+          </ol>
+        </div>
+        <div class="scenario">
+          <h3>Example: Escaping Together</h3>
+          <p>All pawns are on the Elevator. The furnace pile contains 9 Coal. Players have 3 more Coal in inventories.</p>
+          <ol>
+            <li>The team performs the Escape Check.</li>
+            <li>Players immediately deposit inventory Coal into the furnace pile.</li>
+            <li>The furnace contains 12 Coal.</li>
+            <li>All players win.</li>
+          </ol>
+        </div>
+        <div class="scenario">
+          <h3>Example: Spider At Its Nest</h3>
+          <p>A Spider is forced back to its nest, but the nest is blocked by a card or condition the Spider cannot enter.</p>
+          <ol>
+            <li>The Spider must attempt to return to its nest.</li>
+            <li>If it cannot return home for any reason, remove it from the game.</li>
+            <li>If the nest is open, place the Spider there.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="rule-section" id="advanced">
+      <div class="section-label">
+        <div class="section-number">Section 07</div>
+        <h2>Alternate And Advanced Rules</h2>
+        <p>Optional levers for difficulty once the standard game is stable.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <div class="grid-3">
+            <div class="rule-card">
+              <h4>Coal Difficulty</h4>
+              <p>Easier game: require 10 Coal. Standard game: require 12 Coal. Harder game: require 14 Coal.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Chained Flooding</h4>
+              <p>Advanced River rule: instead of one flood wave per round, continue flooding until no more spaces can flood.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Air Restoration</h4>
+              <p>No main-game rule currently restores air. This may be explored later as an alternate rule.</p>
+            </div>
+          </div>
+          <div class="editable-note">
+            <h4>Variant Notes</h4>
+            <textarea data-store="variant-notes" placeholder="Add future alternate rules here."></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rule-section" id="open-questions">
+      <div class="section-label">
+        <div class="section-number">Section 08</div>
+        <h2>Open Questions</h2>
+        <p>Use this for tomorrow's designer session before converting the draft into final card text.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <h3>Questions To Resolve Next</h3>
+          <div class="grid-2" style="margin-top: 16px;">
+            <div class="rule-card">
+              <h4>Spider Reveal Timing</h4>
+              <p>When a player reveals a Spider under their pawn, does the Spider trap that pawn immediately, or does the Spider move immediately?</p>
+            </div>
+            <div class="rule-card">
+              <h4>Dig Deep Edge Cases</h4>
+              <p>Can Dig Deep target a space containing Spider, Rope, Repellent, standing pawn, or trapped pawn? What resolves first?</p>
+            </div>
+            <div class="rule-card">
+              <h4>Rope On River</h4>
+              <p>Rope does not stop forced River movement. Define exactly what Rope does on a River in plain player-facing language.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Progress Circle Restrictions</h4>
+              <p>While on a non-final progress circle, which actions are legal: stow, trade, inventory actions, adjacent actions, rescue?</p>
+            </div>
+          </div>
+          <div class="editable-note">
+            <h4>Designer Answers</h4>
+            <textarea data-store="open-question-answers" placeholder="Record answers here during the next rules session."></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Mine Trap rules draft. This live document stores note fields in this browser only.
+    </div>
+  </main>
+
+  <script>
+    const storedFields = document.querySelectorAll("[data-store]");
+
+    function storageKey(field) {
+      return "mine-trap-rules:" + field.dataset.store;
+    }
+
+    storedFields.forEach((field) => {
+      const saved = localStorage.getItem(storageKey(field));
+      if (saved !== null) field.value = saved;
+      field.addEventListener("input", () => {
+        localStorage.setItem(storageKey(field), field.value);
+      });
+    });
+  </script>
+</body>
+</html>

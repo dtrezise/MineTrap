@@ -517,7 +517,22 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-win" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-win" placeholder="Write the locked answer here.">Current locked direction:
+Use 12 Coal as the standard playtest requirement. This has felt dangerous enough while still possible, though it remains one of the hardest balance points to solve.
+
+Difficulty suggestions:
+- Easier game: require 10 Coal.
+- Standard game: require 12 Coal.
+- More challenging game: require 14 Coal.
+
+Coal counting:
+Coal deposited into the furnace counts toward the final total. Coal still in player inventories also counts during the final Escape Check, including face-down Coal cards.
+
+Action: Stoke the Furnace
+While your pawn is on the Elevator, you may use 1 action to deposit 1 Coal from your inventory into the furnace pile. This can be done during normal gameplay to reduce cards in your inventory and bank Coal toward the final count.
+
+Escape Check:
+If all pawns are on the Elevator, players may immediately deposit any Coal from their inventories into the furnace pile. If the furnace contains 12 or more Coal, all players win.</textarea>
                 </div>
               </section>
 
@@ -534,7 +549,21 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-air" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-air" placeholder="Write the locked answer here.">Current locked direction:
+Use these default air values for playtesting:
+- 1 player: 18 air
+- 2 players: 15 air
+- 3 players: 13 air
+- 4 players: 11 air
+
+Burning Coal:
+Yes, burning Coal always depletes air by 1 round.
+
+Difficulty:
+Yes, include difficulty suggestions. Use the default values as Standard. Easier and harder air values can be presented as variants after the standard game is validated.
+
+Air Restoration:
+No current main-game rule restores or adds air. This may be considered later as an alternate rule.</textarea>
                 </div>
               </section>
 
@@ -552,7 +581,25 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-spiders" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-spiders" placeholder="Write the locked answer here.">Current locked direction:
+Spiders move when revealed and during the Spiders step at the end of every round.
+
+Exception:
+If one or more pawns are on the same space as a Spider, that Spider does not move. Those pawns are trapped with the Spider and use the progress circle mechanism to sneak/free themselves.
+
+Once no pawns remain on that Spider, it can move again during the next end-of-round Spiders step.
+
+Movement:
+Spiders use the base-card edge numbers exactly as drafted to choose movement.
+
+Rotation state:
+A Spider is rotated when it is free to move. A Spider is aligned normally when it is trapping a pawn.
+
+Card blocking:
+Yes, a Spider covers and blocks the card beneath it while a pawn is trapped there, because the trapped pawn cannot take normal actions.
+
+Returning to nest:
+When a Spider is forced back to its nest, it must return to its nest. If the nest is blocked for any reason and the Spider cannot return home, remove that Spider from the game.</textarea>
                 </div>
               </section>
 
@@ -569,7 +616,23 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-pickaxe" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-pickaxe" placeholder="Write the locked answer here.">Current locked direction:
+The final action is called Dig Deep.
+
+Effect:
+Dig Deep swaps the top position of the two cards in an adjacent qualifying space. It does not reveal the newly moved top card and does not remove any cards from play.
+
+Design intent:
+Dig Deep helps move the Elevator closer to the top of its stack so it can be discovered sooner.
+
+Cost:
+Dig Deep requires two Pickaxes in the player's inventory to be flipped facedown. No cards are removed from play.
+
+River spaces:
+Dig Deep may target any adjacent space that otherwise qualifies for Dig Deep, including a River space. Water should create danger and navigation puzzles, not a hard lock that can make the Elevator impossible to uncover. Players must use clever movement and Rope placement to safely navigate the action and any resulting River forced movement.
+
+Still clarify:
+- How Dig Deep handles a space with a Spider, Rope, Repellent, or trapped pawn.</textarea>
                 </div>
               </section>
 
@@ -586,7 +649,17 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-inventory" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-inventory" placeholder="Write the locked answer here.">Current locked direction:
+All player inventory cards are visible to the table.
+
+Refresh:
+When all cards in a player's inventory are face down, they refresh immediately by flipping all inventory cards face up.
+
+Unused actions / Stow Item:
+A player may choose Stow Item for unused actions. For each unused required action, the player must flip one face-up inventory card facedown.
+
+Gained cards:
+All gained item cards enter the player's inventory face up.</textarea>
                 </div>
               </section>
 
@@ -603,7 +676,20 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-turn" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-turn" placeholder="Write the locked answer here.">Current locked direction:
+Movement is optional. A player does not have to move.
+
+Actions:
+Each player must resolve two actions each turn. For each unused action, the player must Stow Item by flipping one face-up inventory card facedown.
+
+Move nowhere:
+Yes, moving nowhere is a legal move.
+
+Rescue:
+Yes, rescuing another pawn from an adjacent space can be done as the player's move.
+
+Final progress circle:
+Yes, if there is a legal move from the final progress circle, the player may choose to spend an action before moving away.</textarea>
                 </div>
               </section>
 
@@ -620,7 +706,20 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-rivers" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-rivers" placeholder="Write the locked answer here.">Current locked direction:
+Flooding happens as one wave per round. Advanced/alternate rules may allow flooding to chain until no more spaces can flood.
+
+Rotated cards and flooding:
+Base cards with rotated cards on them are considered empty for flooding. When a River floods that space, remove any rotated card there except for Rope.
+
+Rope and forced River movement:
+A Rope-covered River does not stop forced River movement.
+
+River trapping:
+It should be impossible for a pawn to be completely trapped by River movement.
+
+Dig Deep and Rivers:
+River spaces remain legal Dig Deep targets if the adjacent space otherwise qualifies for Dig Deep. Water should create danger and navigation puzzles, not a hard lock that can make the Elevator impossible to uncover. Players may need clever movement and Rope placement to navigate the action safely.</textarea>
                 </div>
               </section>
 
@@ -637,7 +736,17 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-tools" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-tools" placeholder="Write the locked answer here.">Current locked direction:
+Rope and Repellent stay on the board as rotated cards after being placed, unless Repellent is washed away by a River.
+
+You may take it with you:
+Taking back a Rope or Repellent with the "You may take it with you" rule is a free action.
+
+Water:
+Rope is not washed away by newly revealed water. Repellent can be washed away by newly revealed water.
+
+Placement:
+Rope or Repellent may be placed even if the card underneath is unrevealed.</textarea>
                 </div>
               </section>
 
@@ -654,7 +763,17 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-setup" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-setup" placeholder="Write the locked answer here.">Current locked direction:
+Multiple players may start on the same space if they choose to do so strategically.
+
+Starting spaces:
+Players may start on any edge space.
+
+Elevator placement:
+The Elevator is always placed somewhere in the center 3x3 grid. It is not necessarily under another card; it may be a top card.
+
+Coal / High Rubble random removal:
+Keep the coal/high-rubble random-removal step exactly as written.</textarea>
                 </div>
               </section>
 
@@ -671,7 +790,8 @@
                 </div>
                 <div class="question-footer">
                   <h4>Designer Answer</h4>
-                  <textarea data-store="q-counts" placeholder="Write the locked answer here."></textarea>
+                  <textarea data-store="q-counts" placeholder="Write the locked answer here.">Deferred:
+Revisit final component counts after the final rules document is approved. At that point, calculate the mine deck by card type, starting item counts by player count, tool chest mix by player count, and final rule/reference card needs from the locked rules.</textarea>
                 </div>
               </section>
             </div>
