@@ -681,7 +681,7 @@
       <a href="#cards">Cards</a>
       <a href="#scenarios">Examples</a>
       <a href="#advanced">Alternate Rules</a>
-      <a href="#open-questions">Open Questions</a>
+      <a href="#open-questions">Designer Answers</a>
     </div>
   </nav>
 
@@ -892,7 +892,7 @@
             </div>
             <div class="step">
               <h4>Set aside the Elevator</h4>
-              <p>Remove the Elevator from the mine deck. It will be shuffled into the center 3x3 portion of the mine.</p>
+              <p>Remove the Elevator from the mine deck. It will be placed as the bottom mine card in one randomly chosen space of the center 3x3.</p>
             </div>
             <div class="step">
               <h4>Randomize Coal and High Rubble</h4>
@@ -900,7 +900,8 @@
             </div>
             <div class="step">
               <h4>Build the center</h4>
-              <p>Draw 8 random mine cards and add the Elevator. Shuffle those 9 cards, then place them facedown in the center 3x3 of the base grid. The Elevator is always somewhere in this center 3x3, but it may be a top card.</p>
+              <p>Randomly choose one space in the center 3x3 and place the Elevator there facedown as the bottom mine card. Draw 8 random mine cards and place one facedown as the bottom mine card in each of the other center spaces.</p>
+              <p>When completing the mine, make sure the Elevator space receives at least one facedown mine card on top of the Elevator. The Elevator is always buried in the center 3x3 and is always on the bottom layer of mine cards.</p>
             </div>
             <div class="step">
               <h4>Complete the mine</h4>
@@ -1022,11 +1023,9 @@
           <div class="panel">
             <div class="panel-body">
               <h3>Progress Circles</h3>
-              <p>Some setbacks place a pawn on progress circles. A pawn may use its move to advance to the next progress circle. If there is a legal move from the final progress circle, the player may choose to spend an action before moving away.</p>
-              <div class="callout pending">
-                <strong>Needs Final Language</strong>
-                Tomorrow's designer question: exactly which actions are legal while a pawn is on a non-final progress circle?
-              </div>
+              <p>Some setbacks place a pawn on progress circles to represent engagement in a continued activity.</p>
+              <p>While your pawn is on an arrowless progress circle, your move must only be used to advance your pawn to the next sequential circle, and your actions are restricted to actions that do not involve adjacent spaces.</p>
+              <p>Progress circles with one or more arrows do not restrict moves or actions in the direction that the arrows point. If there is a legal move from the final progress circle, the player may choose to spend an action before moving away.</p>
             </div>
           </div>
         </div>
@@ -1045,7 +1044,7 @@
               </div>
               <div class="rule-card">
                 <h4>3. Spiders</h4>
-                <p>Move each revealed Spider that is free to move and not trapping a pawn.</p>
+                <p>In alphabetical order by name, move each revealed Spider that contains no pawns.</p>
               </div>
             </div>
           </div>
@@ -1081,6 +1080,7 @@
               <h4>Pickaxe: Dig Deep</h4>
               <p><strong>2 Actions: Dig Deep.</strong> Choose your current space or an adjacent space with two unrotated mine cards. Flip two Pickaxes in your inventory facedown to swap the two cards in that space. Reveal the new top card.</p>
               <p>If the revealed card has a Forced rule, resolve it immediately if applicable.</p>
+              <p>Dig Deep may target a space containing a Spider, Rope, Repellent, standing pawn, or trapped pawn. Dig Deep swaps only the mine cards in that space; pawns remain on top of the space, and overlay cards such as Rope, Repellent, or a free rotated Spider remain in place unless another rule moves them.</p>
               <p>You may not Dig Deep your current space while your pawn is on a progress circle.</p>
             </div>
             <div class="rule-card">
@@ -1092,11 +1092,15 @@
               <h4>Rope And Repellent</h4>
               <p>Rope and Repellent stay on the board as rotated cards after being placed, unless Repellent is washed away by a River. Taking one back with "You may take it with you" is a free action.</p>
               <p>Rope is not washed away by newly revealed water. Repellent can be washed away. Rope or Repellent may be placed even if the card underneath is unrevealed.</p>
+              <p>When Rope is placed on a River, it creates a crossing that allows pawns to move across that River using the Rope. Rope does not stop forced River movement.</p>
             </div>
             <div class="rule-card">
               <h4>Spiders</h4>
-              <p>Spiders do not move when revealed. When a Spider is revealed, it stays on that space. If one or more pawns are on the same space as a Spider, that Spider traps those pawns and does not move.</p>
-              <p>During the Spiders step at the end of each round, move each revealed Spider that is free to move and not trapping a pawn. A free Spider is rotated. A Spider trapping a pawn is aligned normally and blocks the card beneath it. Several Spider cards exist as variant difficulty and personality options.</p>
+              <p>Spiders do not move when revealed. When a Spider is revealed, it stays on that space. If one or more pawns are on the same space as a Spider, the Spider traps those pawns immediately and does not move.</p>
+              <p>During the Spiders step at the end of each round, move revealed Spiders in alphabetical order by name. Only move a Spider if it contains no pawns.</p>
+              <p>A Spider may move to one of the 8 surrounding spaces. It cannot move to a space topped by another Spider, a River, a Repellent, or the Elevator. From the remaining legal spaces, move the Spider to the space with the highest number shown on the edge of that space's base card. Players may slightly move the cards covering a base card to see its edge numbers. If there are no legal spaces, the Spider does not move.</p>
+              <p>A free moved Spider is placed rotated across the card it is over so players know they may lift it to see any revealed card beneath it. If a Spider moves onto a space with one or more pawns, place those pawns on the first progress circle; the Spider is now trapping them and should be aligned normally.</p>
+              <p>If a pawn moves onto a space topped by a rotated Spider, that Spider traps the pawn immediately. Place the pawn on the first progress circle and align the Spider normally.</p>
             </div>
             <div class="rule-card">
               <h4>Spider Nest</h4>
@@ -1140,10 +1144,6 @@
             <img src="assets/cards/spider_repellent_1.png" alt="Spider Repellent variant 1">
             <img src="assets/cards/spider_repellent_2.png" alt="Spider Repellent variant 2">
             <img src="assets/cards/spider_repellent_3.png" alt="Spider Repellent variant 3">
-          </div>
-          <div class="callout pending">
-            <strong>Dig Deep Edge Cases Pending</strong>
-            Still decide how Dig Deep handles a space with a Spider, Rope, Repellent, standing pawn, or trapped pawn.
           </div>
         </div>
       </div>
@@ -1235,29 +1235,33 @@
     <section class="rule-section" id="open-questions">
       <div class="section-label">
         <div class="section-number">Section 08</div>
-        <h2>Open Questions</h2>
-        <p>Use this for tomorrow's designer session before converting the draft into final card text.</p>
+        <h2>Designer Answers</h2>
+        <p>Recent clarifications now folded into the standard rules.</p>
       </div>
       <div class="panel">
         <div class="panel-body">
-          <h3>Questions To Resolve Next</h3>
+          <h3>Resolved In This Pass</h3>
           <div class="grid-2" style="margin-top: 16px;">
             <div class="rule-card">
+              <h4>Elevator Placement</h4>
+              <p>The Elevator is always in the center 3x3, always buried under another mine card, and always on the bottom layer of mine cards in its space.</p>
+            </div>
+            <div class="rule-card">
+              <h4>Spider Reveal And Movement</h4>
+              <p>A revealed Spider traps pawns on its space immediately and does not move. Spider movement happens only during the end-of-round Spiders step.</p>
+            </div>
+            <div class="rule-card">
               <h4>Dig Deep Edge Cases</h4>
-              <p>Can Dig Deep target a space containing Spider, Rope, Repellent, standing pawn, or trapped pawn? What resolves first?</p>
+              <p>Dig Deep may target spaces containing a Spider, Rope, Repellent, standing pawn, or trapped pawn. Dig Deep swaps only mine cards; pawns stay on top of the space.</p>
             </div>
             <div class="rule-card">
               <h4>Rope On River</h4>
-              <p>Rope does not stop forced River movement. Define exactly what Rope does on a River in plain player-facing language.</p>
+              <p>Rope lets pawns move across a River using the Rope. It does not stop forced River movement.</p>
             </div>
             <div class="rule-card">
               <h4>Progress Circle Restrictions</h4>
-              <p>While on a non-final progress circle, which actions are legal: stow, trade, inventory actions, adjacent actions, rescue?</p>
+              <p>Use the Progress Circles reference card: arrowless circles restrict movement to advancing and restrict actions to non-adjacent actions; arrows remove restrictions in the directions they point.</p>
             </div>
-          </div>
-          <div class="editable-note">
-            <h4>Designer Answers</h4>
-            <textarea data-store="open-question-answers" placeholder="Record answers here during the next rules session."></textarea>
           </div>
         </div>
       </div>
