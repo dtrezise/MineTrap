@@ -404,6 +404,21 @@
       box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
     }
 
+    .component-image-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .component-image-row img {
+      width: 58px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+    }
+
     .variant-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -749,7 +764,7 @@
             <div class="rule-card">
               <h4>Markers</h4>
               <ul>
-                <li>One pawn per player.</li>
+                <li>One wooden player pawn per player: blue, yellow, green, and red.</li>
                 <li>Air Counter card and marker pawn.</li>
                 <li>Tool Chest Pile locator.</li>
                 <li>Furnace pile area for deposited Coal.</li>
@@ -794,6 +809,21 @@
                 <li>4 Rule cards.</li>
                 <li>Start air at 11 rounds.</li>
               </ul>
+            </div>
+            <div class="rule-card">
+              <h4>Player Pawns</h4>
+              <ul>
+                <li>Type: wooden pawn, small head.</li>
+                <li>Dimensions: 29mm x 13mm.</li>
+                <li>Material: wood.</li>
+                <li>Colors: blue, yellow, green, red.</li>
+              </ul>
+              <div class="component-image-row" aria-label="Player pawn colors">
+                <img src="assets/components/bluePawn.jpg" alt="Blue wooden pawn">
+                <img src="assets/components/yellowPawn.jpg" alt="Yellow wooden pawn">
+                <img src="assets/components/greenPawn.jpg" alt="Green wooden pawn">
+                <img src="assets/components/redPawn.jpg" alt="Red wooden pawn">
+              </div>
             </div>
           </div>
 
