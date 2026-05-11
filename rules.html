@@ -733,11 +733,11 @@
           </div>
         </div>
         <div class="art-strip" aria-label="Mine Trap card art references">
-          <img src="assets/cards/elevator.png" alt="Elevator card">
-          <img src="assets/cards/coal_01.png" alt="Coal card">
-          <img src="assets/cards/card_pickaxe_DigDeep.png" alt="Pickaxe card">
-          <img src="assets/cards/card_river.png" alt="River card">
-          <img src="assets/cards/card_spider_dunkin.png" alt="Spider card">
+          <img src="assets/cards/elevator_mine.png" alt="Elevator card with mine badge">
+          <img src="assets/cards/coal_01_mine.png" alt="Coal card with mine badge">
+          <img src="assets/cards/card_pickaxe_DigDeep_toolchest.png" alt="Pickaxe card with Tool Chest badge">
+          <img src="assets/cards/card_river_mine.png" alt="River card with mine badge">
+          <img src="assets/cards/card_spider_dunkin_mine.png" alt="Spider card with mine badge">
         </div>
       </div>
     </section>
@@ -757,7 +757,7 @@
               <ul>
                 <li>Base cards with River backs and edge numbers.</li>
                 <li>Mine cards used to build the hidden mine.</li>
-                <li>Item cards for player inventories and the Tool Chest pile.</li>
+                <li>Item cards for player inventories and the Tool Chest pile, using the collapsed mine card back.</li>
                 <li>Rule/reference cards for turn order and progress circles.</li>
               </ul>
             </div>
@@ -765,7 +765,7 @@
               <h4>Markers</h4>
               <ul>
                 <li>One wooden player pawn per player: blue, yellow, green, and red.</li>
-                <li>Air Counter card and marker pawn.</li>
+                <li>Air Counter card and one white wooden marker pawn.</li>
                 <li>Tool Chest Pile locator.</li>
                 <li>Furnace pile area for deposited Coal.</li>
                 <li>Removed from Game pile locator.</li>
@@ -782,7 +782,7 @@
             <div class="rule-card">
               <h4>Mine Cards</h4>
               <ul>
-                <li>4 Pit cards; optionally replace 1 Pit with Cavern.</li>
+                <li>4 Pit cards; optionally use the 2-circle Pit variant for an easier escape.</li>
                 <li>4 River cards.</li>
                 <li>4 Tool Chest cards.</li>
                 <li>2 2-Coal cards and 2 3-Coal cards.</li>
@@ -791,14 +791,15 @@
                 <li>6 High Rubble and 6 Coal cards, reduced to 8 randomly mixed cards during setup.</li>
                 <li>1 Elevator card.</li>
               </ul>
+              <p>Mine-deck cards use the lantern badge.</p>
             </div>
             <div class="rule-card">
               <h4>Starting Item Cards</h4>
               <ul>
-                <li>4 Coal cards.</li>
-                <li>8 Pickaxe cards.</li>
+                <li>4 Coal cards: 1 player-colored Coal per player.</li>
+                <li>8 Pickaxe cards: print 2 Pickaxes per player color.</li>
               </ul>
-              <p>These may be color coded later to distinguish them from mine-deck cards.</p>
+              <p>Starter cards use the matching player pawn badge.</p>
             </div>
             <div class="rule-card">
               <h4>Tool Chest And Rules</h4>
@@ -809,6 +810,7 @@
                 <li>4 Rule cards.</li>
                 <li>Start air at 11 rounds.</li>
               </ul>
+              <p>Tool Chest cards use the Tool Chest badge.</p>
             </div>
             <div class="rule-card">
               <h4>Player Pawns</h4>
@@ -816,13 +818,15 @@
                 <li>Type: wooden pawn, small head.</li>
                 <li>Dimensions: 29mm x 13mm.</li>
                 <li>Material: wood.</li>
-                <li>Colors: blue, yellow, green, red.</li>
+                <li>Player colors: blue, yellow, green, red.</li>
+                <li>Air Counter marker: white.</li>
               </ul>
               <div class="component-image-row" aria-label="Player pawn colors">
                 <img src="assets/components/bluePawn.jpg" alt="Blue wooden pawn">
                 <img src="assets/components/yellowPawn.jpg" alt="Yellow wooden pawn">
                 <img src="assets/components/greenPawn.jpg" alt="Green wooden pawn">
                 <img src="assets/components/redPawn.jpg" alt="Red wooden pawn">
+                <img src="assets/components/whitePawn.jpg" alt="White wooden pawn for the Air Counter marker">
               </div>
             </div>
           </div>
@@ -830,28 +834,46 @@
           <h3 style="margin-top: 22px;">Key Card Families</h3>
           <div class="inventory-list">
             <div class="inventory-item">
-              <img src="assets/cards/card_pickaxe_DigDeep.png" alt="Pickaxe card">
+              <img src="assets/cards/card_pickaxe_DigDeep_toolchest.png" alt="Tool Chest Pickaxe card">
               <div>
                 <h4>Pickaxe</h4>
                 <p>Used to gain buried items and Dig Deep into the current space or an adjacent two-card stack.</p>
+                <div class="mini-card-row" aria-label="Starter and Tool Chest Pickaxe cards">
+                  <img src="assets/cards/card_pickaxe_DigDeep_blue_starter.png" alt="Blue starter Pickaxe">
+                  <img src="assets/cards/card_pickaxe_DigDeep_yellow_starter.png" alt="Yellow starter Pickaxe">
+                  <img src="assets/cards/card_pickaxe_DigDeep_green_starter.png" alt="Green starter Pickaxe">
+                  <img src="assets/cards/card_pickaxe_DigDeep_red_starter.png" alt="Red starter Pickaxe">
+                  <img src="assets/cards/card_pickaxe_DigDeep_toolchest.png" alt="Tool Chest Pickaxe">
+                </div>
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/card_map.png" alt="Map card">
+              <img src="assets/cards/card_map_mine.png" alt="Map card with mine badge">
               <div>
                 <h4>Map</h4>
                 <p>Item card. Use Find Fast Path to gain one additional move on your turn.</p>
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/coal_01.png" alt="Coal card">
+              <img src="assets/cards/card_item_back.png" alt="Collapsed mine item card back">
+              <div>
+                <h4>Item Card Back</h4>
+                <p>The shared back for inventory and Tool Chest cards. It shows the collapsed mine and sets the opening mood without adding gameplay information.</p>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/coal_01_mine.png" alt="Coal card with mine badge">
               <div>
                 <h4>Coal</h4>
                 <p>Coal powers the Elevator furnace. Standard Coal counts as 1 Coal, and the official mine deck also includes 2-Coal and 3-Coal cards.</p>
                 <div class="mini-card-row" aria-label="Coal art variants">
-                  <img src="assets/cards/coal_01.png" alt="Coal variant 1">
-                  <img src="assets/cards/coal_02.png" alt="Coal variant 2">
-                  <img src="assets/cards/coal_03.png" alt="Coal variant 3">
+                  <img src="assets/cards/coal_01_mine.png" alt="Mine-deck Coal variant 1">
+                  <img src="assets/cards/coal_02_mine.png" alt="Mine-deck 2-Coal variant">
+                  <img src="assets/cards/coal_03_mine.png" alt="Mine-deck 3-Coal variant">
+                  <img src="assets/cards/coal_01_blue_starter.png" alt="Blue starter Coal">
+                  <img src="assets/cards/coal_01_yellow_starter.png" alt="Yellow starter Coal">
+                  <img src="assets/cards/coal_01_green_starter.png" alt="Green starter Coal">
+                  <img src="assets/cards/coal_01_red_starter.png" alt="Red starter Coal">
                 </div>
               </div>
             </div>
@@ -866,7 +888,7 @@
               <img src="assets/cards/AirCounter_11.png" alt="Air Counter card">
               <div>
                 <h4>Air Counter</h4>
-                <p>Choose the Air Counter card that matches player count, then place a marker pawn on the starting air value.</p>
+                <p>Choose the Air Counter card that matches player count, then place the white marker pawn on the starting air value.</p>
                 <div class="mini-card-row" aria-label="Air Counter card variants">
                   <img src="assets/cards/AirCounter_18.png" alt="18 Air Counter for 1 player">
                   <img src="assets/cards/AirCounter_15.png" alt="15 Air Counter for 2 players">
@@ -883,14 +905,14 @@
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/card_rope.png" alt="Rope card">
+              <img src="assets/cards/card_rope_toolchest.png" alt="Rope card with Tool Chest badge">
               <div>
                 <h4>Rope</h4>
                 <p>Placed as rotated board infrastructure. It can help with pits and rivers, and is not washed away by water.</p>
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/card_tool_chest_new.png" alt="Tool Chest card">
+              <img src="assets/cards/card_tool_chest_new_mine.png" alt="Tool Chest card with mine badge">
               <div>
                 <h4>Tool Chest</h4>
                 <p>When gained, remove it from play and draw from the Tool Chest pile.</p>
@@ -904,50 +926,75 @@
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/card_air_masks.png" alt="Air Masks card">
+              <img src="assets/cards/card_air_masks_mine.png" alt="Air Masks card with mine badge">
               <div>
                 <h4>Air Masks</h4>
                 <p>Optional Tool Chest item. It may be held and discarded at any time to move the air counter back 1 space.</p>
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/spider_repellent_1.png" alt="Spider Repellent card">
+              <img src="assets/cards/spider_repellent_1_toolchest.png" alt="Spider Repellent card with Tool Chest badge">
               <div>
                 <h4>Spider Repellent</h4>
                 <p>Repellent variants add visual interest but play the same. Repellent can be washed away by River flooding.</p>
                 <div class="mini-card-row" aria-label="Spider Repellent art variants">
-                  <img src="assets/cards/spider_repellent_1.png" alt="Spider Repellent variant 1">
-                  <img src="assets/cards/spider_repellent_2.png" alt="Spider Repellent variant 2">
-                  <img src="assets/cards/spider_repellent_3.png" alt="Spider Repellent variant 3">
+                  <img src="assets/cards/spider_repellent_1_toolchest.png" alt="Tool Chest Spider Repellent variant 1">
+                  <img src="assets/cards/spider_repellent_2_toolchest.png" alt="Tool Chest Spider Repellent variant 2">
+                  <img src="assets/cards/spider_repellent_3_toolchest.png" alt="Tool Chest Spider Repellent variant 3">
                 </div>
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/Cavern.png" alt="Cavern card">
+              <img src="assets/cards/Cavern_mine.png" alt="Cavern card with mine badge">
               <div>
                 <h4>Cavern</h4>
                 <p>A pit-like setback with a new route out of the mine; when escaped, it can reposition a pawn across the board.</p>
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/elevator.png" alt="Elevator card">
+              <img src="assets/cards/elevator_mine.png" alt="Elevator card with mine badge">
               <div>
                 <h4>Elevator</h4>
                 <p>The goal location. Gather all pawns here and stoke the furnace with enough Coal to escape.</p>
               </div>
             </div>
             <div class="inventory-item">
-              <img src="assets/cards/card_spider_dunkin.png" alt="Spider card">
+              <img src="assets/cards/card_spider_dunkin_mine.png" alt="Spider card with mine badge">
               <div>
                 <h4>Giant Spider</h4>
                 <p>A moving setback unless it is trapping a pawn on its space. Multiple spider versions are available so the prototype can support an easier spider mix.</p>
                 <div class="mini-card-row" aria-label="Spider art variants">
-                  <img src="assets/cards/card_spider_addi.png" alt="Addi the Giant Spider">
-                  <img src="assets/cards/card_spider_buddy.png" alt="Buddy the Giant Spider">
-                  <img src="assets/cards/card_spider_cuddles.png" alt="Cuddles the Giant Spider">
-                  <img src="assets/cards/card_spider_dunkin.png" alt="Dunkin the Giant Spider">
-                  <img src="assets/cards/card_spider_ed.png" alt="Ed the Giant Spider">
+                  <img src="assets/cards/card_spider_addi_mine.png" alt="Addi the Giant Spider with mine badge">
+                  <img src="assets/cards/card_spider_buddy_mine.png" alt="Buddy the Giant Spider with mine badge">
+                  <img src="assets/cards/card_spider_cuddles_mine.png" alt="Cuddles the Giant Spider with mine badge">
+                  <img src="assets/cards/card_spider_dunkin_mine.png" alt="Dunkin the Giant Spider with mine badge">
+                  <img src="assets/cards/card_spider_ed_mine.png" alt="Ed the Giant Spider with mine badge">
                 </div>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/card_river_mine.png" alt="River card with mine badge">
+              <div>
+                <h4>River</h4>
+                <p>Setback card that forces pawns along connected River spaces. Rope allows movement across a River, but does not stop the forced River movement.</p>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/card_pit_trap_2_mine.png" alt="Pit card with mine badge">
+              <div>
+                <h4>Pit</h4>
+                <p>Setback card that places the pawn on progress circles. A 2-circle Pit variant is available for faster escape tuning.</p>
+                <div class="mini-card-row" aria-label="Pit card variants">
+                  <img src="assets/cards/card_pit_trap_2_mine.png" alt="3-circle Pit card">
+                  <img src="assets/cards/card_pit_trap_2circle_mine.png" alt="2-circle Pit card">
+                </div>
+              </div>
+            </div>
+            <div class="inventory-item">
+              <img src="assets/cards/card_high_rubble_mine.png" alt="High Rubble card with mine badge">
+              <div>
+                <h4>High Rubble</h4>
+                <p>Obstacle card cleared with a Pickaxe. Setup starts with 6 High Rubble and 6 Coal, then randomly reduces that mix to 8 cards.</p>
               </div>
             </div>
           </div>
@@ -1196,28 +1243,28 @@
           <h3 style="margin-top: 22px;">Current Coal Variants</h3>
           <p>Standard Coal cards use three artwork variants to make coal discoveries feel less repetitive. These standard Coal variants each count as 1 Coal; 2-Coal and 3-Coal cards count as their printed value.</p>
           <div class="variant-grid" aria-label="Current Coal card variants">
-            <img src="assets/cards/coal_01.png" alt="Coal card variant 1">
-            <img src="assets/cards/coal_02.png" alt="Coal card variant 2">
-            <img src="assets/cards/coal_03.png" alt="Coal card variant 3">
+            <img src="assets/cards/coal_01_mine.png" alt="Coal card variant 1 with mine badge">
+            <img src="assets/cards/coal_02_mine.png" alt="2-Coal card with mine badge">
+            <img src="assets/cards/coal_03_mine.png" alt="3-Coal card with mine badge">
           </div>
           <h3 style="margin-top: 22px;">Current Spider Variants</h3>
           <p>These cards share the Giant Spider system, but the prototype now includes multiple named versions so the final game can tune difficulty and variety.</p>
           <div class="variant-grid" aria-label="Current Giant Spider card variants">
-            <img src="assets/cards/card_spider_addi.png" alt="Addi the Giant Spider">
-            <img src="assets/cards/card_spider_buddy.png" alt="Buddy the Giant Spider">
-            <img src="assets/cards/card_spider_cuddles.png" alt="Cuddles the Giant Spider">
-            <img src="assets/cards/card_spider_cuddles_2.png" alt="Cuddles the Giant Spider alternate">
-            <img src="assets/cards/card_spider_dunkin.png" alt="Dunkin the Giant Spider">
-            <img src="assets/cards/card_spider_dunkin_2.png" alt="Dunkin the Giant Spider alternate">
-            <img src="assets/cards/card_spider_ed.png" alt="Ed the Giant Spider">
-            <img src="assets/cards/card_spider_ed_2.png" alt="Ed the Giant Spider alternate">
+            <img src="assets/cards/card_spider_addi_mine.png" alt="Addi the Giant Spider with mine badge">
+            <img src="assets/cards/card_spider_buddy_mine.png" alt="Buddy the Giant Spider with mine badge">
+            <img src="assets/cards/card_spider_cuddles_mine.png" alt="Cuddles the Giant Spider with mine badge">
+            <img src="assets/cards/card_spider_cuddles_2_mine.png" alt="Cuddles the Giant Spider alternate with mine badge">
+            <img src="assets/cards/card_spider_dunkin_mine.png" alt="Dunkin the Giant Spider with mine badge">
+            <img src="assets/cards/card_spider_dunkin_2_mine.png" alt="Dunkin the Giant Spider alternate with mine badge">
+            <img src="assets/cards/card_spider_ed_mine.png" alt="Ed the Giant Spider with mine badge">
+            <img src="assets/cards/card_spider_ed_2_mine.png" alt="Ed the Giant Spider alternate with mine badge">
           </div>
           <h3 style="margin-top: 22px;">Spider Repellent Variants</h3>
           <p>The Spider Repellent cards use different artwork for interest, but they play the same unless a later rules pass says otherwise.</p>
           <div class="variant-grid" aria-label="Current Spider Repellent card variants">
-            <img src="assets/cards/spider_repellent_1.png" alt="Spider Repellent variant 1">
-            <img src="assets/cards/spider_repellent_2.png" alt="Spider Repellent variant 2">
-            <img src="assets/cards/spider_repellent_3.png" alt="Spider Repellent variant 3">
+            <img src="assets/cards/spider_repellent_1_toolchest.png" alt="Spider Repellent variant 1 with Tool Chest badge">
+            <img src="assets/cards/spider_repellent_2_toolchest.png" alt="Spider Repellent variant 2 with Tool Chest badge">
+            <img src="assets/cards/spider_repellent_3_toolchest.png" alt="Spider Repellent variant 3 with Tool Chest badge">
           </div>
         </div>
       </div>
@@ -1294,14 +1341,14 @@
               <p>By default, air does not recover during the main game. Air-restoring cards should be added only as optional variants.</p>
             </div>
             <div class="rule-card">
-              <img src="assets/cards/card_air_pocket.png" alt="Air Pocket card" style="width: 100%; max-width: 180px; display: block; margin: 0 0 12px; border-radius: 6px;">
+              <img src="assets/cards/card_air_pocket_mine.png" alt="Air Pocket card with mine badge" style="width: 100%; max-width: 180px; display: block; margin: 0 0 12px; border-radius: 6px;">
               <h4>Optional Air Pocket</h4>
               <p>Add 1 Air Pocket card to the center group with the Elevator if you want one extra surprise benefit in the mine.</p>
               <p>When Air Pocket is first revealed, restore one air on the counter, up to the starting air value. Then leave the card revealed in its space.</p>
               <p>This can make a Dig Deep reveal feel exciting even when the team was hoping to find the Elevator.</p>
             </div>
             <div class="rule-card">
-              <img src="assets/cards/card_air_masks.png" alt="Air Masks card" style="width: 100%; max-width: 180px; display: block; margin: 0 0 12px; border-radius: 6px;">
+              <img src="assets/cards/card_air_masks_mine.png" alt="Air Masks card with mine badge" style="width: 100%; max-width: 180px; display: block; margin: 0 0 12px; border-radius: 6px;">
               <h4>Optional Air Masks</h4>
               <p>Shuffle 1 Air Masks card into the Tool Chest pile if you want the team to have one holdable emergency air option.</p>
               <p>As an item, Air Masks may be kept in a player's inventory and used at any time. When used, discard it and move the air counter back 1 space, up to the starting air value.</p>
